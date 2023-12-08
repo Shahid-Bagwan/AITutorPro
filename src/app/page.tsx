@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { getAuthSession } from "@/lib/nextauth";
-import { redirect } from "next/navigation";
+import Image from "next/image";
 
-export default async function Home() {
-  return redirect("/gallery");
+export default function Home() {
+  return <></>;
 }
