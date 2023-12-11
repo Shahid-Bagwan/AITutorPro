@@ -8,8 +8,8 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
-export const runtime = 'nodejs'
-export const maxDuration = 300
+export const runtime = "nodejs";
+export const maxDuration = 300;
 
 export async function POST(req: Request, res: Response) {
   try {
@@ -24,6 +24,7 @@ export async function POST(req: Request, res: Response) {
     const body = await req.json();
     const { title, units } = createChaptersSchema.parse(body);
     let s3_file_key: string | null = body.s3_file_key ?? null;
+    console.log("s3_file_key", s3_file_key);
     let summarised_content = "";
     try {
       const { data } = await axios.post(
