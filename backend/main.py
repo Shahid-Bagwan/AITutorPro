@@ -151,11 +151,11 @@ mindmap
         os.remove(random_input_file)
         os.remove(random_output_file)
         # return the s3 url
-        # https://whatthehack2023.s3.ap-southeast-1.amazonaws.com/mermaid/output.png
+        # https://whatthehack2023.s3.ap-south-1.amazonaws.com/mermaid/output.png
         res = (
             "https://"
             + os.getenv("NEXT_PUBLIC_S3_BUCKET_NAME")
-            + f".s3.ap-southeast-1.amazonaws.com/mermaid/{random_output_file}"
+            + f".s3.ap-south-1.amazonaws.com/mermaid/{random_output_file}"
         )
         print(res)
         return res

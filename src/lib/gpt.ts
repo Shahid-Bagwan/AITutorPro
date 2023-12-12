@@ -4,7 +4,7 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
-
+console.log("openai", openai);
 interface OutputFormat {
   [key: string]: string | string[] | OutputFormat;
 }
@@ -50,7 +50,7 @@ export async function strict_output(
     if (list_input) {
       output_format_prompt += `\nGenerate an array of json, one json for each input element.`;
     }
-
+    console.log("system_prompt");
     // Use OpenAI to get a response
     const response = await openai.createChatCompletion({
       temperature: temperature,
@@ -63,7 +63,7 @@ export async function strict_output(
         { role: "user", content: user_prompt.toString() },
       ],
     });
-
+    console.log("response", response);
     let res: string =
       response.data.choices[0].message?.content?.replace(/'/g, '"') ?? "";
 

@@ -40,7 +40,7 @@ export async function GET() {
           price_data: {
             currency: "USD",
             product_data: {
-              name: "Learning Journey Pro",
+              name: "AI TUTOR PRO",
               description: "Unlimited AI Generations",
             },
             unit_amount: 2000,

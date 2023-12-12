@@ -23,20 +23,22 @@ export async function POST(req: Request, res: Response) {
     // }
     const body = await req.json();
     const { title, units } = createChaptersSchema.parse(body);
-    let s3_file_key: string | null = body.s3_file_key ?? null;
-    console.log("s3_file_key", s3_file_key);
-    let summarised_content = "";
-    try {
-      const { data } = await axios.post(
-        `${process.env.BACKEND_URL}/api/get-summarised-s3-content`,
-        {
-          s3_file_key,
-        }
-      );
-      summarised_content = data;
-    } catch (error) {
-      summarised_content = "";
-    }
+    console.log("title", title);
+    console.log("units", units);
+    // let s3_file_key: string | null = body.s3_file_key ?? null;
+    // console.log("s3_file_key", s3_file_key);
+    // let summarised_content = "";
+    // try {
+    //   const { data } = await axios.post(
+    //     `${process.env.BACKEND_URL}/api/get-summarised-s3-content`,
+    //     {
+    //       s3_file_key,
+    //     }
+    //   );
+    //   summarised_content = data;
+    // } catch (error) {
+    //   summarised_content = "";
+    // }
 
     type outputUnits = {
       title: string;
@@ -45,16 +47,12 @@ export async function POST(req: Request, res: Response) {
         chapter_title: string;
       }[];
     }[];
+    console.log("testing");
     let output_units: outputUnits = await strict_output(
       "You are an AI capable of curating course content, coming up with relavent chapter titles, and finding relavent youtube videos for each chapter",
       new Array(units.length).fill(
         // `	It is your job to create a course about ${title}. The user has requested to create chapters for each of the above units.`
-        `	It is your job to create a course about ${title}. ${
-          s3_file_key &&
-          "The user has also passed in a document context in which they they want to be taken into consideration when generating the course, the document is this: \n\n" +
-            summarised_content +
-            "\n\n"
-        } The user has requested to create chapters for each of the above units. Then, for each chapter, provide a detailed youtube search query that can be used to find an informative educational video for each chapter. Each query should give an educational informative course in youtube.`
+        `	It is your job to create a course about ${title}. The user has requested to create chapters for each of the above units. Then, for each chapter, provide a detailed youtube search query that can be used to find an informative educational video for each chapter. Each query should give an educational informative course in youtube.`
       ),
       {
         title: "title of the unit",
@@ -62,6 +60,7 @@ export async function POST(req: Request, res: Response) {
           "an array of 3 chapters, each chapter should have a youtube_search_query and a chapter_title key in the JSON object",
       }
     );
+    console.log("output_units", output_units);
     const imagePrompt = `
     Please provide a good image search term for the title of a course about ${title}. This search term
     will be fed into the unsplash API, so make sure it is a good search term that will return a good image.
@@ -74,12 +73,14 @@ export async function POST(req: Request, res: Response) {
     const course_image = await getUnsplashImage(
       imageSearchTerm.image_search_term
     );
+    console.log("course_image", course_image);
     const course = await prisma.course.create({
       data: {
         name: title,
         image: course_image,
       },
     });
+    console.log("course", course);
     for (const unit of output_units) {
       const title = unit.title;
       // use regex to remove things like "Unit 1: " from the title
@@ -120,6 +121,6 @@ export async function POST(req: Request, res: Response) {
         }
       );
     }
-    console.error(error);
+    // console.error(error);
   }
 }

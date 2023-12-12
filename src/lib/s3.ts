@@ -2,6 +2,7 @@ import AWS from "aws-sdk";
 
 export async function uploadToS3(file: File) {
   try {
+    console.log("uploading to s3");
     AWS.config.update({
       accessKeyId: process.env.NEXT_PUBLIC_S3_ACCESS_KEY_ID,
       secretAccessKey: process.env.NEXT_PUBLIC_S3_SECRET_ACCESS_KEY,
@@ -9,16 +10,18 @@ export async function uploadToS3(file: File) {
     const s3 = new AWS.S3({
       params: { Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME },
       // region should be in singapore
-      region: "ap-southeast-1",
+      region: "ap-south-1",
     });
 
     const file_key =
       "uploads/" + file.name.replace(" ", "") + Date.now().toString();
+    console.log(file_key);
     const params = {
       Bucket: process.env.NEXT_PUBLIC_S3_BUCKET_NAME as string,
       Key: file_key,
       Body: file,
     };
+
     const upload = s3
       .putObject(params)
       .on("httpUploadProgress", (evt) => {
@@ -29,7 +32,7 @@ export async function uploadToS3(file: File) {
         );
       })
       .promise();
-
+    console.log("uploading");
     await upload.then((data) => {
       // get url of the file
       const url = s3.getSignedUrl("getObject", {
@@ -37,9 +40,8 @@ export async function uploadToS3(file: File) {
         Key: file.name,
       });
     });
-    return Promise.resolve(file_key);
-
     console.log("success upload to s3");
+    return Promise.resolve(file_key);
   } catch (error) {
     console.log(error);
   }

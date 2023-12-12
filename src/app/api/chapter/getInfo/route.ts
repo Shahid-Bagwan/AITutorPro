@@ -9,8 +9,8 @@ import axios from "axios";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-export const runtime = 'nodejs'
-export const maxDuration = 300
+export const runtime = "nodejs";
+export const maxDuration = 300;
 
 const bodyParser = z.object({
   chapterId: z.string(),

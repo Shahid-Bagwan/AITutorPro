@@ -37,18 +37,20 @@ const CreateCourseForm = ({ isPro }: { isPro: boolean }) => {
   const { mutate: createChapters, isLoading: creatingChapters } = useMutation({
     mutationFn: async ({ units, title }: Input) => {
       console.log("meow");
-      let s3_file_key = null;
-      if (file) {
-        s3_file_key = await uploadToS3(file);
-        console.log("s3_file_key", s3_file_key);
-      }
+      // let s3_file_key = null;
+      // console.log("file", file);
+      // if (file) {
+      //   s3_file_key = await uploadToS3(file);
+      //   console.log("s3_file_key", s3_file_key);
+      // }
       // return;
       const payload = {
         units,
         title,
-        s3_file_key,
       };
+      console.log("sdsdfsd");
       const response = await axios.post("/api/course/createChapters", payload);
+      console.log("response", response);
       return response.data;
     },
   });
@@ -109,7 +111,7 @@ const CreateCourseForm = ({ isPro }: { isPro: boolean }) => {
   return (
     <div className="flex flex-col items-start max-w-xl px-8 mx-auto my-16 sm:px-0">
       <h1 className="self-center text-3xl font-bold text-center sm:text-6xl">
-        Learning Journey
+        AI TUTOR PRO
       </h1>
       <Card className="flex p-4 mt-5 border-none bg-secondary">
         <Info className="w-12 h-12 mr-3 text-blue-400" />
@@ -211,26 +213,6 @@ const CreateCourseForm = ({ isPro }: { isPro: boolean }) => {
                   }}
                 >
                   Remove Unit <Trash className="w-4 h-4 ml-2 text-red-500" />
-                </Button>
-                <Button
-                  variant="secondary"
-                  type="button"
-                  className="ml-2 font-semibold"
-                  onClick={() => {
-                    // upload file
-
-                    const input = document.createElement("input");
-                    input.type = "file";
-                    input.accept = ".pdf";
-                    input.onchange = (e) => {
-                      const file = (e.target as HTMLInputElement).files?.[0];
-                      if (!file) return;
-                      setFile(file);
-                    };
-                    input.click();
-                  }}
-                >
-                  Upload PDF <Upload className="w-4 h-4 ml-2 " />
                 </Button>
               </div>
               <Separator className="flex-[1]" />
