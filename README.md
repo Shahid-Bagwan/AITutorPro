@@ -18,9 +18,9 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Shahid Estate <a name="about-project"></a>
+# 📖 AITutorPro <a name="about-project"></a>
 
-Shahid Estate: A MERN stack project that builds a modern real estate marketplace application. The application includes features like user authentication, property listings, search, and more. The project is deployed to Vercel.
+AITutorPro: Create course using the power of OPENAI Models within just seconds. Made with AWS, PLANETSCALE, PRISMA, POSTGRESQL, NEXTJS, OPENAI, PALMAI, UNSPLASHED,TYPESCRIPT, TAILWIND & MUCH MORE
 <a href="https://real-estate-frontend-lyart.vercel.app/"><img src="./aitutorpro.gif" /></a>
 
 ## 🛠 Built With <a name="built-with"></a>
