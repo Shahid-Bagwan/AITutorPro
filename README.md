@@ -21,7 +21,7 @@
 # 📖 Shahid Estate <a name="about-project"></a>
 
 Shahid Estate: A MERN stack project that builds a modern real estate marketplace application. The application includes features like user authentication, property listings, search, and more. The project is deployed to Vercel.
-<a href="https://real-estate-frontend-lyart.vercel.app/"><img src="./aitutor.jpg" /></a>
+<a href="https://real-estate-frontend-lyart.vercel.app/"><img src="./aitutorpro.gif" /></a>
 
 ## 🛠 Built With <a name="built-with"></a>
 
