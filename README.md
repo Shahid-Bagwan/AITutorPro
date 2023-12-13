@@ -22,7 +22,7 @@
 
 # AITutorPro: Create course using the power of OPENAI Models within just seconds. Made with AWS, PLANETSCALE, PRISMA, POSTGRESQL, NEXTJS, OPENAI, PALMAI, UNSPLASHED,TYPESCRIPT, TAILWIND & MUCH MORE
 
-<a href="https://real-estate-frontend-lyart.vercel.app/"><img src="./aitutorpro.gif" /></a>
+<a href=""><img src="./aitutorpro.gif" /></a>
 
 ## 🛠 Built With <a name="built-with"></a>
 
